@@ -15,6 +15,7 @@ HA_NUM_SERVERS=0
 declare -a HA_SERVERS
 
 SECRET_PEM="/etc/sysconfig/storhaug.d/secret.pem"
+REMOTE_USER="storhaug"
 
 MY_IPS=( $(hostname -I || hostname -i) )
 
@@ -60,7 +61,7 @@ ssh_do()
     if [[ ${1} = ${MY_IPS[0]} ]]; then
         eval ${2}
     else
-        ssh -q -oPasswordAuthentication=no -oStrictHostKeyChecking=no -i ${SECRET_PEM} root@${1} "${2}"
+        ssh -q -oPasswordAuthentication=no -oStrictHostKeyChecking=no -i ${SECRET_PEM} ${REMOTE_USER}@${1} "sudo ${2}"
     fi
 
     local _ret=$?
@@ -74,7 +75,7 @@ scp_do()
 {
     # avoid prompting for password, even with password-less scp
     # scp $host1:$file $host2:$file prompts for the password
-    scp -q -3 -r -oPasswordAuthentication=no -oStrictHostKeyChecking=no -i ${SECRET_PEM} ${1} ${2}
+    scp -q -3 -r -oPasswordAuthentication=no -oStrictHostKeyChecking=no -i ${SECRET_PEM} ${1} ${REMOTE_USER}@${2}
     local _ret=$?
     if [ $_ret -ne 0 ]; then
         storlog "WARN" "SCP failed from ${1} to ${2}"
