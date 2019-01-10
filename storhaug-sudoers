@@ -1,0 +1,5 @@
+storhaug       ALL=(ALL)        NOPASSWD: /bin/ln -s /run/gluster/shared_storage/nfs-ganesha/ganesha.conf /etc/ganesha/ganesha.conf, \
+                                          /bin/firewall-cmd*, \
+                                          /bin/systemctl @(start|stop) ctdb, \
+                                          /bin/rm /etc/ganesha/ganesha.conf, \
+                                          /bin/dbus-send --print-reply --system --dest=org.ganesha.nfsd*

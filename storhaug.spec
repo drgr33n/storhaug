@@ -53,6 +53,9 @@ gzip -c storhaug.8 %{_mandir}/man8/storhaug.8.gz
      %{_sysconfdir}/ctdb/nfs-ganesha-callout
 
 %changelog
+* Thu Jan 10 2019 Zarren Spry <zarrenspry@gmail.com>
+- Added option to run remote commands as a system user.
+
 * Wed Jul 11 2018 Kaleb S. KEITHLEY <kkeithle at redhat.com>
 - /etc/sysconfig/storhaug.d, Vendor
 
